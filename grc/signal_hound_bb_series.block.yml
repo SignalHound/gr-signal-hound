@@ -1,0 +1,44 @@
+id: signal_hound_bb_series
+label: "BB60: IQ Source"
+category: "[Signal Hound]/Source"
+
+templates:
+  imports: from gnuradio import signal_hound
+  make: signal_hound.bb_series(${center}, ${reflevel}, ${decimation}, ${bandwidth}, ${purge})
+  callbacks:
+    - set_center(${center})
+    - set_reflevel(${reflevel})
+    - set_decimation(${decimation})
+    - set_bandwidth(${bandwidth})
+    - set_purge(${purge})
+
+parameters:
+  - id: center
+    label: Center Frequency
+    dtype: float
+    default: 1e9
+  - id: reflevel
+    label: Reference Level
+    dtype: float
+    default: -20
+  - id: decimation
+    label: Decimation
+    dtype: int
+    default: 1
+  - id: bandwidth
+    label: Bandwidth
+    dtype: float
+    default: 27e6
+  - id: purge
+    label: Purge
+    dtype: bool
+    default: false
+
+inputs:
+
+outputs:
+  - label: out
+    domain: stream
+    dtype: complex
+
+file_format: 1

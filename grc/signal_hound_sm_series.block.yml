@@ -1,0 +1,54 @@
+id: signal_hound_sm_series
+label: "SM200/SM435: IQ Source"
+category: "[Signal Hound]/Source"
+
+templates:
+  imports: from gnuradio import signal_hound
+  make: signal_hound.sm_series(${center}, ${reflevel}, ${atten}, ${decimation}, ${swfilter}, ${purge}, ${bandwidth})
+  callbacks:
+  - set_center(${center})
+  - set_reflevel(${reflevel})
+  - set_atten(${atten})
+  - set_decimation(${decimation})
+  - set_swfilter(${swfilter})
+  - set_purge(${purge})
+  - set_bandwidth(${bandwidth})
+
+parameters:
+  - id: center
+    label: Center Frequency
+    dtype: float
+    default: 1.0e9
+  - id: reflevel
+    label: Reference Level
+    dtype: float
+    default: -20.0
+  - id: atten
+    label: Attenuation Level
+    dtype: int
+    default: -1
+  - id: decimation
+    label: Decimation
+    dtype: int
+    default: 1
+  - id: swfilter
+    label: Software Filter
+    dtype: bool
+    default: true
+  - id: purge
+    label: Purge
+    dtype: bool
+    default: false
+  - id: bandwidth
+    label: Bandwidth
+    dtype: float
+    default: 27.0e6
+
+inputs:
+
+outputs:
+  - label: out
+    domain: stream
+    dtype: complex
+
+file_format: 1

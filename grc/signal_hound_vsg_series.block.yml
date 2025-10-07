@@ -1,0 +1,44 @@
+id: signal_hound_vsg_series
+label: "VSG60: IQ Sink"
+category: "[Signal Hound]/Sink"
+
+templates:
+  imports: from gnuradio import signal_hound
+  make: signal_hound.vsg_series(${center}, ${samplerate}, ${level}, ${ioffset}, ${qoffset})
+  callbacks:
+  - set_center(${center})
+  - set_samplerate(${samplerate})
+  - set_level(${level})
+  - set_ioffset(${ioffset})
+  - set_qoffset(${qoffset})
+
+parameters:
+  - id: center
+    label: Center Frequency
+    dtype: float
+    default: 1.0e9
+  - id: samplerate
+    label: Sample Rate
+    dtype: float
+    default: 20.0e6
+  - id: level
+    label: Level
+    dtype: float
+    default: -20.0
+  - id: ioffset
+    label: I Offset
+    dtype: int
+    default: 0
+  - id: qoffset
+    label: Q Offset
+    dtype: int
+    default: 0
+
+inputs:
+  - label: in
+    domain: stream
+    dtype: complex
+
+outputs:
+
+file_format: 1

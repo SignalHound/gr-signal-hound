@@ -1,0 +1,6 @@
+/*!
+ * \defgroup block GNU Radio SIGNAL_HOUND C++ Signal Processing Blocks
+ * \brief All C++ blocks that can be used from the SIGNAL_HOUND GNU Radio
+ *        module are listed here or in the subcategories below.
+ *
+ */
