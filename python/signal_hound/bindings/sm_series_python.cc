@@ -47,6 +47,10 @@ void bind_sm_series(py::module& m)
              py::arg("swfilter"),
              py::arg("purge"),
              py::arg("bandwidth"),
+             py::arg("type"),
+             py::arg("hostAddr"),
+             py::arg("deviceAddr"),
+             py::arg("port"),
              D(sm_series, make))
 
 
@@ -81,11 +85,29 @@ void bind_sm_series(py::module& m)
         .def(
             "set_purge", &sm_series::set_purge, py::arg("purge"), D(sm_series, set_purge))
 
-
-        .def("set_bandwidth",
+         .def("set_bandwidth",
              &sm_series::set_bandwidth,
              py::arg("bandwidth"),
              D(sm_series, set_bandwidth))
 
+         .def("set_type",
+             &sm_series::set_type,
+             py::arg("type"),
+             D(sm_series, set_type))
+
+         .def("set_hostAddr",
+             &sm_series::set_hostAddr,
+             py::arg("hostAddr"),
+             D(sm_series, set_hostAddr))
+
+         .def("set_deviceAddr",
+             &sm_series::set_deviceAddr,
+             py::arg("deviceAddr"),
+             D(sm_series, set_deviceAddr))
+
+         .def("set_port",
+             &sm_series::set_port,
+             py::arg("port"),
+             D(sm_series, set_port))
         ;
 }

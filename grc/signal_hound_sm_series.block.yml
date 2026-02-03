@@ -4,7 +4,7 @@ category: "[Signal Hound]/Source"
 
 templates:
   imports: from gnuradio import signal_hound
-  make: signal_hound.sm_series(${center}, ${reflevel}, ${atten}, ${decimation}, ${swfilter}, ${purge}, ${bandwidth})
+  make: signal_hound.sm_series(${center}, ${reflevel}, ${atten}, ${decimation}, ${swfilter}, ${purge}, ${bandwidth}, ${smType}, ${hostAddr}, ${deviceAddr}, ${port})
   callbacks:
   - set_center(${center})
   - set_reflevel(${reflevel})
@@ -13,6 +13,12 @@ templates:
   - set_swfilter(${swfilter})
   - set_purge(${purge})
   - set_bandwidth(${bandwidth})
+  - set_type(${smType})
+  - set_hostAddr(${hostAddr})
+  - set_deviceAddr(${deviceAddr})
+  - set_port(${port})
+  
+
 
 parameters:
   - id: center
@@ -43,6 +49,22 @@ parameters:
     label: Bandwidth
     dtype: float
     default: 27.0e6
+  - id: smType
+    label: SM Type
+    dtype: string
+    options: [SM200A, SM200B, SM200C, SM435B, SM435C]
+  - id: hostAddr
+    label: Host Address
+    dtype: string
+    default: "192.168.2.2"
+  - id: deviceAddr
+    label: Device Address
+    dtype: string
+    default: "192.168.2.10"
+  - id: port
+    label: Port
+    dtype: int
+    default: 51665
 
 inputs:
 

@@ -23,6 +23,10 @@ namespace gr {
                 double _bandwidth;
                 SmBool _purge;
                 SmBool _swfilter;
+                SmDeviceType _type;
+                std::string _hostAddr;
+                std::string _deviceAddr;
+                uint16_t _port;
 
                 gr::thread::mutex _mutex;
                 bool _param_changed;
@@ -38,7 +42,11 @@ namespace gr {
                                int decimation, 
                                bool swfilter, 
                                bool purge, 
-                               double bandwidth);
+                               double bandwidth,
+                               std::string type,
+                               std::string hostAddr,
+                               std::string deviceAddr,
+                               uint16_t port);
                 ~sm_series_impl(void);
 
                 void set_center(double center);
@@ -48,6 +56,10 @@ namespace gr {
                 void set_bandwidth(double bandwidth);
                 void set_purge(bool purge);
                 void set_swfilter(bool swfilter);
+                void set_type(std::string type);
+                void set_hostAddr(std::string hostAddr);
+                void set_deviceAddr(std::string deviceAddr);
+                void set_port(uint16_t port);
 
                 void configure(void);
 

@@ -10,6 +10,23 @@
 
 namespace gr {
     namespace signal_hound {
+        static SmDeviceType SMStringToType(std::string typeString)
+        {
+            SmDeviceType type = smDeviceTypeSM200A;
+            if (typeString == "SM200A") {
+                type = smDeviceTypeSM200A;    
+            } else if (typeString == "SM200B") {
+                type = smDeviceTypeSM200B;
+            } else if (typeString == "SM200C") {
+                type = smDeviceTypeSM200C;
+            } else if (typeString == "SM435B") {
+                type = smDeviceTypeSM435B;
+            } else if (typeString == "SM435C") {
+                type = smDeviceTypeSM435C;
+            }
+            return type;
+        }
+
         using output_type = gr_complex;
         sm_series::sptr sm_series::make(double center, 
                                         double reflevel, 
@@ -17,10 +34,14 @@ namespace gr {
                                         int decimation, 
                                         bool swfilter, 
                                         bool purge, 
-                                        double bandwidth) 
+                                        double bandwidth,
+                                        std::string type,
+                                        std::string hostAddr,
+                                        std::string deviceAddr,
+                                        uint16_t port)
         {
             return gnuradio::make_block_sptr<sm_series_impl>(
-                center, reflevel, atten, decimation, swfilter, purge, bandwidth);
+                center, reflevel, atten, decimation, swfilter, purge, bandwidth, type, hostAddr, deviceAddr, port);
         }
 
         void ERROR_CHECK(const char* call, SmStatus status)
@@ -45,7 +66,11 @@ namespace gr {
                                        int decimation, 
                                        bool swfilter, 
                                        bool purge, 
-                                       double bandwidth) : 
+                                       double bandwidth,
+                                       std::string type,
+                                       std::string hostAddr,
+                                       std::string deviceAddr,
+                                       uint16_t port) : 
             gr::sync_block("sm_series", 
                            gr::io_signature::make(0, 0, 0),
                            gr::io_signature::make(1 /* min outputs */, 1 /*max outputs */, sizeof(output_type))),
@@ -57,14 +82,25 @@ namespace gr {
             _bandwidth(bandwidth),
             _purge(purge ? smTrue : smFalse),
             _swfilter(swfilter ? smTrue : smFalse),
+            _type(SMStringToType(type)),
+            _hostAddr(hostAddr),
+            _deviceAddr(deviceAddr),
+            _port(port),
             _param_changed(true),
             _buffer(0),
-            _len(0) 
+            _len(0)
         {
             std::cout << "\nAPI Version: " << smGetAPIVersion() << std::endl;
 
             // Open device
-            ERROR_CHECK("smOpenDevice", smOpenDevice(&_handle));
+            if(_type == smDeviceTypeSM200A ||
+               _type == smDeviceTypeSM200B ||
+               _type == smDeviceTypeSM435B) {
+                ERROR_CHECK("smOpenDevice", smOpenDevice(&_handle));
+            } else {
+                 std::cout << "smOpenNetworkedDevice(" << std::to_string(_handle) << "," << _hostAddr.c_str() << "," << _deviceAddr.c_str() << "," << std::to_string(port) << ")" << std::endl;
+                ERROR_CHECK("smOpenNetworkedDevice", smOpenNetworkedDevice(&_handle, _hostAddr.c_str(), _deviceAddr.c_str(), _port));
+            }
 
             int serial;
             SmDeviceType dtype;
@@ -129,6 +165,34 @@ namespace gr {
         {
             gr::thread::scoped_lock lock(_mutex);
             _purge = purge ? smTrue : smFalse;
+        }
+
+        void sm_series_impl::set_type(std::string type)
+        {
+            gr::thread::scoped_lock lock(_mutex);
+            _type = SMStringToType(type);
+            _param_changed = true;
+        }
+
+        void sm_series_impl::set_hostAddr(std::string hostAddr)
+        {
+            gr::thread::scoped_lock lock(_mutex);
+            _hostAddr = hostAddr;
+            _param_changed = true;
+        }
+
+        void sm_series_impl::set_deviceAddr(std::string deviceAddr)
+        {
+            gr::thread::scoped_lock lock(_mutex);
+            _deviceAddr = deviceAddr;
+            _param_changed = true;
+        }
+
+        void sm_series_impl::set_port(uint16_t port)
+        {
+            gr::thread::scoped_lock lock(_mutex);
+            _port = port;
+            _param_changed = true;
         }
 
         void sm_series_impl::configure()

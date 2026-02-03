@@ -38,7 +38,11 @@ namespace gr {
                        int decimation, 
                        bool swfilter, 
                        bool purge, 
-                       double bandwidth);
+                       double bandwidth,
+                       std::string type, // Enum Type 
+                       std::string hostAddr,
+                       std::string deviceAddr,
+                       uint16_t port);
       virtual void set_center(double center) = 0;
       virtual void set_reflevel(double reflevel) = 0;
       virtual void set_atten(int atten) = 0;
@@ -46,6 +50,10 @@ namespace gr {
       virtual void set_swfilter(bool swfilter) = 0;
       virtual void set_purge(bool purge) = 0;
       virtual void set_bandwidth(double bandwidth) = 0;
+      virtual void set_type(std::string type) = 0;
+      virtual void set_hostAddr(std::string hostAddr) = 0;
+      virtual void set_deviceAddr(std::string hostAddr) = 0;
+      virtual void set_port(uint16_t port) = 0;
     };
 
   } // namespace signal_hound
