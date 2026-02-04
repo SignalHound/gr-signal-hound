@@ -1,5 +1,5 @@
 /*
- * Copyright 2025 Free Software Foundation, Inc.
+ * Copyright 2026 Free Software Foundation, Inc.
  *
  * This file is part of GNU Radio
  *
@@ -48,7 +48,7 @@ static const char* __doc_gr_signal_hound_sm_series_set_purge = R"doc()doc";
 static const char* __doc_gr_signal_hound_sm_series_set_bandwidth = R"doc()doc";
 
 
-static const char* __doc_gr_signal_hound_sm_series_set_type= R"doc()doc";
+static const char* __doc_gr_signal_hound_sm_series_set_type = R"doc()doc";
 
 
 static const char* __doc_gr_signal_hound_sm_series_set_hostAddr = R"doc()doc";
