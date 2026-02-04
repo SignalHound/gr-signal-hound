@@ -6,7 +6,7 @@
 ## System Requirements
 
 - 64-bit Linux operating system
-    - Tested on DragonOS Noble 6.14.0-27-generic
+    - Tested on [RF Swift](https://rfswift.io) (`sdr_light`, and `sdr_full` [images](https://rfswift.io/docs/guide/list-of-tools/#sdr-light-tools)) DragonOS Noble 6.14.0-27-generic
 - Native USB 3.0 support
 ## Dependancies
 
