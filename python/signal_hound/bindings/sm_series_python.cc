@@ -1,5 +1,5 @@
 /*
- * Copyright 2025 Free Software Foundation, Inc.
+ * Copyright 2026 Free Software Foundation, Inc.
  *
  * This file is part of GNU Radio
  *
@@ -14,7 +14,7 @@
 /* BINDTOOL_GEN_AUTOMATIC(0)                                                       */
 /* BINDTOOL_USE_PYGCCXML(0)                                                        */
 /* BINDTOOL_HEADER_FILE(sm_series.h)                                        */
-/* BINDTOOL_HEADER_FILE_HASH(05a36eb27c12590b364bb4afc0a1d618)                     */
+/* BINDTOOL_HEADER_FILE_HASH(93d555963dfd60fc7ff406a9a6148fa5)                     */
 /***********************************************************************************/
 
 #include <pybind11/complex.h>
@@ -30,84 +30,118 @@ namespace py = pybind11;
 void bind_sm_series(py::module& m)
 {
 
-    using sm_series = ::gr::signal_hound::sm_series;
+    using sm_series    = ::gr::signal_hound::sm_series;
 
 
-    py::class_<sm_series,
-               gr::sync_block,
-               gr::block,
-               gr::basic_block,
-               std::shared_ptr<sm_series>>(m, "sm_series", D(sm_series))
+    py::class_<sm_series, gr::sync_block, gr::block, gr::basic_block,
+        std::shared_ptr<sm_series>>(m, "sm_series", D(sm_series))
 
         .def(py::init(&sm_series::make),
-             py::arg("center"),
-             py::arg("reflevel"),
-             py::arg("atten"),
-             py::arg("decimation"),
-             py::arg("swfilter"),
-             py::arg("purge"),
-             py::arg("bandwidth"),
-             py::arg("type"),
-             py::arg("hostAddr"),
-             py::arg("deviceAddr"),
-             py::arg("port"),
-             D(sm_series, make))
+           py::arg("center"),
+           py::arg("reflevel"),
+           py::arg("atten"),
+           py::arg("decimation"),
+           py::arg("swfilter"),
+           py::arg("purge"),
+           py::arg("bandwidth"),
+           py::arg("type"),
+           py::arg("hostAddr"),
+           py::arg("deviceAddr"),
+           py::arg("port"),
+           D(sm_series,make)
+        )
+        
 
 
-        .def("set_center",
-             &sm_series::set_center,
-             py::arg("center"),
-             D(sm_series, set_center))
 
 
-        .def("set_reflevel",
-             &sm_series::set_reflevel,
-             py::arg("reflevel"),
-             D(sm_series, set_reflevel))
+        
+        .def("set_center",&sm_series::set_center,       
+            py::arg("center"),
+            D(sm_series,set_center)
+        )
 
 
-        .def(
-            "set_atten", &sm_series::set_atten, py::arg("atten"), D(sm_series, set_atten))
+        
+        .def("set_reflevel",&sm_series::set_reflevel,       
+            py::arg("reflevel"),
+            D(sm_series,set_reflevel)
+        )
 
 
-        .def("set_decimation",
-             &sm_series::set_decimation,
-             py::arg("decimation"),
-             D(sm_series, set_decimation))
+        
+        .def("set_atten",&sm_series::set_atten,       
+            py::arg("atten"),
+            D(sm_series,set_atten)
+        )
 
 
-        .def("set_swfilter",
-             &sm_series::set_swfilter,
-             py::arg("swfilter"),
-             D(sm_series, set_swfilter))
+        
+        .def("set_decimation",&sm_series::set_decimation,       
+            py::arg("decimation"),
+            D(sm_series,set_decimation)
+        )
 
 
-        .def(
-            "set_purge", &sm_series::set_purge, py::arg("purge"), D(sm_series, set_purge))
+        
+        .def("set_swfilter",&sm_series::set_swfilter,       
+            py::arg("swfilter"),
+            D(sm_series,set_swfilter)
+        )
 
-         .def("set_bandwidth",
-             &sm_series::set_bandwidth,
-             py::arg("bandwidth"),
-             D(sm_series, set_bandwidth))
 
-         .def("set_type",
-             &sm_series::set_type,
-             py::arg("type"),
-             D(sm_series, set_type))
+        
+        .def("set_purge",&sm_series::set_purge,       
+            py::arg("purge"),
+            D(sm_series,set_purge)
+        )
 
-         .def("set_hostAddr",
-             &sm_series::set_hostAddr,
-             py::arg("hostAddr"),
-             D(sm_series, set_hostAddr))
 
-         .def("set_deviceAddr",
-             &sm_series::set_deviceAddr,
-             py::arg("deviceAddr"),
-             D(sm_series, set_deviceAddr))
+        
+        .def("set_bandwidth",&sm_series::set_bandwidth,       
+            py::arg("bandwidth"),
+            D(sm_series,set_bandwidth)
+        )
 
-         .def("set_port",
-             &sm_series::set_port,
-             py::arg("port"),
-             D(sm_series, set_port))
+
+        
+        .def("set_type",&sm_series::set_type,       
+            py::arg("type"),
+            D(sm_series,set_type)
+        )
+
+
+        
+        .def("set_hostAddr",&sm_series::set_hostAddr,       
+            py::arg("hostAddr"),
+            D(sm_series,set_hostAddr)
+        )
+
+
+        
+        .def("set_deviceAddr",&sm_series::set_deviceAddr,       
+            py::arg("hostAddr"),
+            D(sm_series,set_deviceAddr)
+        )
+
+
+        
+        .def("set_port",&sm_series::set_port,       
+            py::arg("port"),
+            D(sm_series,set_port)
+        )
+
         ;
+
+
+
+
 }
+
+
+
+
+
+
+
+
